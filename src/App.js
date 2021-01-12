@@ -11,6 +11,7 @@ function App() {
 			<div className='app__player'>
 				<BandcampPlayer album={albumId} size='large' />
 			</div>
+			<button onClick={() => setAlbumId(3221399452)}>THE BUTTON</button>
 		</div>
 	);
 }
