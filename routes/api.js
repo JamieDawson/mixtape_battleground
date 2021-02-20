@@ -3,7 +3,7 @@ const router = express.Router();
 const albumModel = require('../models/albumIDs');
 
 //get the data from mongodb.
-router.get('/api', (req, res) => {
+router.get('/getAllData', (req, res) => {
 	albumModel
 		.find()
 		.then((data) => {
@@ -29,9 +29,15 @@ router.post('/update/:id', (req, res) => {
 		.findById(req.params.id)
 		.then((albumStuff) => {
 			console.log(req);
-			albumStuff.album_id_first = req.body.album_id_first;
-			albumStuff.album_id_second = req.body.album_id_second;
-			albumStuff.album_id_thrid = req.body.album_id_thrid;
+			if (req.body.album_id_first) {
+				albumStuff.album_id_first = req.body.album_id_first;
+			}
+			if (req.body.album_id_second) {
+				albumStuff.album_id_second = req.body.album_id_second;
+			}
+			if (req.body.album_id_thrid) {
+				albumStuff.album_id_thrid = req.body.album_id_thrid;
+			}
 
 			albumStuff
 				.save()
