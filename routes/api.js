@@ -7,7 +7,7 @@ router.get('/getAllData', (req, res) => {
 	albumModel
 		.find()
 		.then((data) => {
-			console.log('data: ', data);
+			//console.log('data: ', data);
 			res.json(data);
 		})
 		.catch((error) => {
