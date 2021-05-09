@@ -25,10 +25,11 @@ router.get('/:id', (req, res) => {
 
 //update the values
 router.post('/update/:id', (req, res) => {
+	console.log(req.body.album_id_first);
 	albumModel
 		.findById(req.params.id)
 		.then((albumStuff) => {
-			console.log(req);
+			//console.log(req);
 			if (req.body.album_id_first) {
 				albumStuff.album_id_first = req.body.album_id_first;
 			}

@@ -15,16 +15,20 @@ function App() {
 		fetch('/getAllData')
 			.then((resp) => resp.json())
 			.then((resp) => {
-				console.log(resp[0].album_id_first);
+				console.log(resp);
+				//console.log(resp[0].album_id_first);
 				const updatedValue = resp[0].album_id_first;
 				setAlbumId(updatedValue);
+				console.log('updatedValue: ' + updatedValue);
 			});
 	}, []);
 
 	const onSubmit = (data) => {
+		//console.log('THIS HERE:' + JSON.stringify(data));
 		const findAlbumNameInObject = data[Object.keys(data)[0]];
+		//console.log('findAlbumNameInObject: ' + findAlbumNameInObject);
 		setAlbumId(findAlbumNameInObject);
-		console.log(albumId1);
+		//console.log(albumId1);
 	};
 
 	return (
@@ -44,4 +48,5 @@ function App() {
 
 export default App;
 
-//3221399452
+//3221399452  //woman chilling
+//3057796265  //cult of mary
