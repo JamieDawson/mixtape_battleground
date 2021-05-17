@@ -24,11 +24,18 @@ function App() {
 	}, []);
 
 	const onSubmit = (data) => {
-		//console.log('THIS HERE:' + JSON.stringify(data));
-		const findAlbumNameInObject = data[Object.keys(data)[0]];
-		//console.log('findAlbumNameInObject: ' + findAlbumNameInObject);
-		setAlbumId(findAlbumNameInObject);
-		//console.log(albumId1);
+		let findAlbumKey = '';
+		let findAlbumValue = '';
+
+		for (const [key, value] of Object.entries(data)) {
+			console.log(`LOOP HERE` + `${key} ${value}`);
+			findAlbumKey = key;
+			findAlbumValue = value;
+		}
+		console.log('findAlbumKey is : ' + findAlbumKey);
+		console.log('findAlbumValue is : ' + findAlbumValue);
+
+		setAlbumId(findAlbumValue);
 	};
 
 	return (
@@ -37,7 +44,7 @@ function App() {
 				<div className='app__album'>
 					<BandcampPlayer album={albumId1} size='large' />
 					<form onSubmit={handleSubmit(onSubmit)}>
-						<input name='firstAlbumSpot' ref={register} />
+						<input name='album_id_first' ref={register} />
 						<input type='submit' />
 					</form>
 				</div>
@@ -50,3 +57,21 @@ export default App;
 
 //3221399452  //woman chilling
 //3057796265  //cult of mary
+
+//old onSubmit code:
+// const onSubmit = (data) => {
+// 	console.log('THE DATA FROM ON SUBMIT: ' + JSON.stringify(data));
+// 	//console.log('THIS HERE:' + JSON.stringify(data));
+// 	//const findAlbumNameInObject = data[Object.keys(data)[0]];
+
+// 	for (const [key, value] of Object.entries(data)) {
+// 		console.log(`LOOP HERE` + `${key} ${value}`);
+// 	}
+
+// 	const findAlbumNameInObject = data[Object.keys(data)[0]];
+// 	//const findJsonName = data[Object.keys(data)[1]];
+// 	console.log('findAlbumNameInObject: ' + findAlbumNameInObject);
+// 	//console.log('findJsonName ' + findJsonName);
+// 	setAlbumId(findAlbumNameInObject);
+// 	//console.log(albumId1);
+// };
