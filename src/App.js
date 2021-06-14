@@ -2,24 +2,26 @@ import './App.css';
 import React, {useState, useEffect} from 'react';
 import BandcampPlayer from 'react-bandcamp';
 import {useForm} from 'react-hook-form';
-//const axios = require('axios');
+import axios from 'axios';
 
 function App() {
-	const [albumId1, setAlbumId] = useState({});
+	const [albumIdAll, setAlbumId] = useState({});
 
 	const {register, handleSubmit} = useForm(); // initialize the hook for the form
-
-	//https://jsonplaceholder.typicode.com/todos/1
 
 	useEffect(() => {
 		fetch('/getAllData')
 			.then((resp) => resp.json())
 			.then((resp) => {
-				console.log(resp);
-				//console.log(resp[0].album_id_first);
-				const updatedValue = resp[0].album_id_first;
-				setAlbumId(updatedValue);
-				console.log('updatedValue: ' + updatedValue);
+				//console.log(resp);
+				//console.log(`resp[0]: ` + JSON.stringify(resp[0]));
+				const updatedValue1 = {
+					album_id_first: resp[0].album_id_first,
+					album_id_second: resp[0].album_id_second,
+				};
+				setAlbumId(updatedValue1);
+
+				console.log(`albumId1 is: ` + JSON.stringify(albumIdAll));
 			});
 	}, []);
 
@@ -28,12 +30,22 @@ function App() {
 		let findAlbumValue = '';
 
 		for (const [key, value] of Object.entries(data)) {
-			console.log(`LOOP HERE` + `${key} ${value}`);
+			console.log(`LOOP HERE ` + `${key} ${value}`);
 			findAlbumKey = key;
 			findAlbumValue = value;
 		}
-		console.log('findAlbumKey is : ' + findAlbumKey);
-		console.log('findAlbumValue is : ' + findAlbumValue);
+
+		axios
+			.post('/update/601b3c29e6fbf6455cef94e5', {
+				theKey: findAlbumKey,
+				theValue: findAlbumValue,
+			})
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
 
 		setAlbumId(findAlbumValue);
 	};
@@ -42,9 +54,16 @@ function App() {
 		<div className='App'>
 			<div className='app__all_albums'>
 				<div className='app__album'>
-					<BandcampPlayer album={albumId1} size='large' />
+					<BandcampPlayer album={albumIdAll.album_id_first} size='large' />
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<input name='album_id_first' ref={register} />
+						<input type='submit' />
+					</form>
+				</div>
+				<div className='app__album'>
+					<BandcampPlayer album={albumIdAll.album_id_second} size='large' />
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<input name='album_id_second' ref={register} />
 						<input type='submit' />
 					</form>
 				</div>
@@ -57,21 +76,3 @@ export default App;
 
 //3221399452  //woman chilling
 //3057796265  //cult of mary
-
-//old onSubmit code:
-// const onSubmit = (data) => {
-// 	console.log('THE DATA FROM ON SUBMIT: ' + JSON.stringify(data));
-// 	//console.log('THIS HERE:' + JSON.stringify(data));
-// 	//const findAlbumNameInObject = data[Object.keys(data)[0]];
-
-// 	for (const [key, value] of Object.entries(data)) {
-// 		console.log(`LOOP HERE` + `${key} ${value}`);
-// 	}
-
-// 	const findAlbumNameInObject = data[Object.keys(data)[0]];
-// 	//const findJsonName = data[Object.keys(data)[1]];
-// 	console.log('findAlbumNameInObject: ' + findAlbumNameInObject);
-// 	//console.log('findJsonName ' + findJsonName);
-// 	setAlbumId(findAlbumNameInObject);
-// 	//console.log(albumId1);
-// };
