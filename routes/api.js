@@ -25,20 +25,16 @@ router.get('/:id', (req, res) => {
 
 //update the values
 router.post('/update/:id', (req, res) => {
+	console.log('called?');
 	albumModel
 		.findById(req.params.id)
 		.then((albumStuff) => {
-			console.log('THE KEY: ' + req.body.theKey);
-
 			if (req.body.theKey) {
+				console.log('INSIDE');
 				if (req.body.theKey == 'album_id_first') {
+					console.log(`req.body.theValue: ` + req.body.theValue);
 					albumStuff.album_id_first = req.body.theValue;
-					console.log('Passed the album_id_first router');
 				}
-				// if (req.body.theKey == 'album_id_second') {
-				// 	albumStuff.album_id_first = req.body.theValue;
-				// 	console.log('Passed the album_id_second router');
-				// }
 			}
 
 			albumStuff

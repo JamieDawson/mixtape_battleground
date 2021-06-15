@@ -13,15 +13,11 @@ function App() {
 		fetch('/getAllData')
 			.then((resp) => resp.json())
 			.then((resp) => {
-				//console.log(resp);
-				//console.log(`resp[0]: ` + JSON.stringify(resp[0]));
 				const updatedValue1 = {
 					album_id_first: resp[0].album_id_first,
 					album_id_second: resp[0].album_id_second,
 				};
 				setAlbumId(updatedValue1);
-
-				console.log(`albumId1 is: ` + JSON.stringify(albumIdAll));
 			});
 	}, []);
 
@@ -41,14 +37,23 @@ function App() {
 				theValue: findAlbumValue,
 			})
 			.then(function (response) {
-				console.log(response);
+				console.log(`axios response is: ` + JSON.stringify(response));
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
 
-		setAlbumId(findAlbumValue);
+		let someValues = {
+			album_id_first: findAlbumValue,
+		};
+
+		setAlbumId(someValues);
+		console.log(`findAlbumValue: ` + JSON.stringify(findAlbumValue));
+		console.log(`albumIdAll: ` + JSON.stringify(albumIdAll));
 	};
+
+	//NOTE TO SELF
+	//Have to pass an object to update frontend
 
 	return (
 		<div className='App'>
@@ -60,13 +65,13 @@ function App() {
 						<input type='submit' />
 					</form>
 				</div>
-				<div className='app__album'>
+				{/* <div className='app__album'>
 					<BandcampPlayer album={albumIdAll.album_id_second} size='large' />
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<input name='album_id_second' ref={register} />
 						<input type='submit' />
 					</form>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);
