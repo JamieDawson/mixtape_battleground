@@ -37,23 +37,51 @@ function App() {
 				theValue: findAlbumValue,
 			})
 			.then(function (response) {
-				console.log(`axios response is: ` + JSON.stringify(response));
+				//console.log(`axios response is: ` + JSON.stringify(response));
 			})
 			.catch(function (error) {
 				console.log(error);
 			});
 
-		let someValues = {
-			album_id_first: findAlbumValue,
-		};
+		//3221399452  //woman chilling
+		//3057796265  //cult of mary
 
-		setAlbumId(someValues);
-		console.log(`findAlbumValue: ` + JSON.stringify(findAlbumValue));
-		console.log(`albumIdAll: ` + JSON.stringify(albumIdAll));
+		setTimeout(() => {
+			fetch('/getAllData')
+				.then((resp) => resp.json())
+				.then((resp) => {
+					const updatedValue2 = {
+						album_id_first: resp[0].album_id_first,
+						album_id_second: resp[0].album_id_second,
+					};
+					console.log(`resp damnit: ` + JSON.stringify(resp[0]));
+					console.log(`after res: ` + JSON.stringify(updatedValue2));
+
+					setAlbumId(updatedValue2);
+				});
+		}, 500);
+
+		// setInterval(() => {
+		// 	fetch('/getAllData')
+		// 		.then((resp) => resp.json())
+		// 		.then((resp) => {
+		// 			const updatedValue2 = {
+		// 				album_id_first: resp[0].album_id_first,
+		// 				album_id_second: resp[0].album_id_second,
+		// 			};
+		// 			console.log(`resp damnit: ` + JSON.stringify(resp[0]));
+		// 			console.log(`after res: ` + JSON.stringify(updatedValue2));
+
+		// 			setAlbumId(updatedValue2);
+		// 		});
+		// }, 9900);
 	};
 
 	//NOTE TO SELF
-	//Have to pass an object to update frontend
+	//The form sends EVERYTHING. That's a bug.
+	//Once I send only one thing. I need to update obSubmit()
+	// might need to make functions asyn/await
+	//https://stackabuse.com/making-asynchronous-http-requests-in-javascript-with-axios
 
 	return (
 		<div className='App'>
@@ -81,3 +109,20 @@ export default App;
 
 //3221399452  //woman chilling
 //3057796265  //cult of mary
+
+//WORKS. but will delete!
+
+// setInterval(() => {
+// 	fetch('/getAllData')
+// 		.then((resp) => resp.json())
+// 		.then((resp) => {
+// 			const updatedValue2 = {
+// 				album_id_first: resp[0].album_id_first,
+// 				album_id_second: resp[0].album_id_second,
+// 			};
+// 			console.log(`resp damnit: ` + JSON.stringify(resp[0]));
+// 			console.log(`after res: ` + JSON.stringify(updatedValue2));
+
+// 			setAlbumId(updatedValue2);
+// 		});
+// }, 5000);
