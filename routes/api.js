@@ -30,10 +30,15 @@ router.post('/update/:id', (req, res) => {
 		.findById(req.params.id)
 		.then((albumStuff) => {
 			if (req.body.theKey) {
-				console.log('INSIDE');
 				if (req.body.theKey == 'album_id_first') {
-					console.log(`req.body.theValue: ` + req.body.theValue);
 					albumStuff.album_id_first = req.body.theValue;
+				}
+				if (req.body.theKey == 'album_id_second') {
+					albumStuff.album_id_second = req.body.theValue;
+				}
+				if (req.body.theKey == 'album_id_thrid') {
+					console.log('www');
+					albumStuff.album_id_thrid = req.body.theValue;
 				}
 			}
 
